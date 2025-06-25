@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% block content %}
+<center>
+<h2>Discussion Forum</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Post</button>
+</form>
+</center>
+<hr>
+
+<h3>All Posts:</h3>
+{% for d in discussions %}
+  <div style="margin-bottom: 15px;">
+    <strong>{{ d.user.username }}</strong> <small>{{ d.posted_at }}</small>
+    <p>{{ d.content }}</p>
+  </div>
+{% empty %}
+  <p>No discussions yet.</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,25 @@
+
+{% extends "core/base.html" %}
+{% block content %}
+<h2 style="border-style: groove;background-color: rgb(58, 74, 184);color: antiquewhite;"><center>My Doubts & Replies</center></h2>
+<ul>
+  {% for doubt in doubts %}
+    <li>
+      <strong>Asked on:</strong> {{ doubt.created_at|date:"M d, Y H:i" }}<br>
+      <strong>Question:</strong> {{ doubt.question }}<br>
+<p class="question">{{ doubt.question }}</p>
+
+      {% if doubt.reply %}
+        <strong>Reply:</strong> {{ doubt.reply }}
+      {% elif doubt.is_resolved %}
+        ✅ Marked as Resolved (no reply)
+      {% else %}
+        ⏳ Pending...
+      {% endif %}
+    </li>
+    <hr>
+  {% empty %}
+    <p>You haven’t submitted any doubts yet.</p>
+  {% endfor %}
+</ul>
+{% endblock %}

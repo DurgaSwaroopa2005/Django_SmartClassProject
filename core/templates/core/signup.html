@@ -1,0 +1,46 @@
+
+{% load static %}
+{% csrf_token %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartClass - Register</title>
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <form method="POST" class="glass-form">
+            <h2>Register for SmartClass</h2>
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="help">{{ field.help_text|safe }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <small class="error">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <!-- Manually add user_type -->
+            <div class="form-group">
+                <label for="user_type">User Type</label>
+                <select name="user_type" id="user_type" required>
+                    <option value="" disabled selected>Select user type</option>
+                    <option value="Student">Student</option>
+                    <option value="Teacher">Teacher</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Register</button>
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        </form>
+    </div>
+</body>
+</html>

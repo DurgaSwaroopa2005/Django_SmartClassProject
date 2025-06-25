@@ -1,0 +1,145 @@
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #56CCF2, #2F80ED);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
+
+/* Container */
+.dashboard-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Header */
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.role {
+    font-size: 1rem;
+    color: #d0d0ff;
+}
+
+.logout-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #e74c3c;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Main */
+.dashboard-main h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+}
+
+.features-list li {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    transition: background 0.2s ease-in-out;
+}
+
+.features-list li:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    .dashboard-container {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .dashboard-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-main h2 {
+        font-size: 1.25rem;
+    }
+
+    .features-list li {
+        font-size: 1rem;
+    }
+
+    .logout-btn {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+}
+
+.question {
+    color: red;
+    font-weight: bold;
+}
+
+.answer {
+    color: blue;
+}
+
+/* a{
+    color: rgb(218, 15, 211);
+    text-decoration: none;
+   
+    font-family:'Times New Roman', Times, serif;
+   
+}*/
+
+
+  a {
+    color: rgb(72, 5, 136);
+    display: inline-block;
+     font-weight: bold;
+    padding: 10px 20px;
+    background-color: none;
+    
+    border-color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.5s;
+  }
+
+  a:hover {
+    background-color: #3d98e7;
+    color: #8612ad;
+  }

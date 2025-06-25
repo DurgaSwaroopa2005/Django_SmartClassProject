@@ -1,0 +1,65 @@
+
+{% extends "core/base.html" %}
+{% load static %}
+<style>
+  .btn:hover{
+    background-color: green;
+  }
+</style>
+{% block content %}
+<body style="
+    background-image: url('{% static 'core/images/questions.jpg' %}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+">
+
+<div style="border-style: inset;border-radius: 15px;
+    width: 400%;
+    max-width: 400px;
+    padding: 30px;
+    margin-left: 10%;
+    margin-top: 30px;
+    background-color: rgba(255, 255, 255, 0.8); ">
+<h2 style="border-radius: 5%;border-style:outset;border-color: rgb(11, 115, 235);background-color: rgb(90, 245, 193);margin-top: 0%;"><center>Add Question to "{{ quiz.title }}"</center></h2>
+<form method="post">
+  {% csrf_token %}
+  <div style="border-style: solid;padding:5px;border-color: cadetblue;margin-top: 0%;">
+  <u><h3><center>Question</center></h3></u>
+  {{ q_form.as_p }}
+  </div>
+  <div style="border-style: solid;padding:5px;border-color: cadetblue;">
+  <u><h3><center>Options</center></h3></u>
+  {{ a_formset.management_form }}
+  {% for form in a_formset %}
+    {{ form.as_p }}
+  {% endfor %}
+</div>
+
+  <button type="submit" style="
+    color: rgb(255, 255, 255);
+    display: inline-block;
+     font-weight: bold;
+    padding: 10px 20px;
+    background-color:rgb(50, 90, 90);
+    border-style: ridge;
+    border-color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 5px;">Save Question<br>(Go to next Question)</button>
+  
+</form>
+<br>
+<center><button style="
+    display: inline-block;
+     font-weight: bold;
+    padding: 10px 20px;
+    background-color:green;
+    border-style: ridge;
+    border-color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 5px;"><a href="{% url 'teacher_dashboard' %}" style="color: white;font-family: monospace;text-decoration: none;font-size: large;">Done Adding Questions</a></button></center>
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+
+{% extends "core/base.html" %}
+{% block content %}
+<body style="background-color: rgba(174, 217, 250, 0.842);">
+<center><h2 style="margin-top:0;border-style:double;background-color: rgb(64, 158, 246);
+font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;glow">Your Quizzes</h2></center>
+<a href="{% url 'create_quiz' %}" style="
+    color: rgb(255, 255, 255);
+    display: inline-block;
+     font-weight: bold;
+    padding: 10px 20px;
+    background-color:rgb(50, 90, 90);
+    border-style: ridge;
+    border-color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 5px;"
+
+  }>+ Create New Quiz</a>
+  <br><br>
+<div style="border-style: groove;">
+<ul>
+  {% for quiz in quizzes %}
+    <li style="font-style: italic; font-weight: 500 ;">
+      <strong>{{ quiz.title }}</strong> – {{ quiz.created_at|date:"M d, Y H:i" }}
+      {% if quiz.is_active %}
+        <span style="color: green;">(Live)</span>
+      {% else %}
+        <a href="{% url 'launch_quiz' quiz.id %}">  Launch Now</a>
+      {% endif %}
+    </li><br>
+  {% endfor %}
+</ul>
+</div>
+</body>
+{% endblock %}

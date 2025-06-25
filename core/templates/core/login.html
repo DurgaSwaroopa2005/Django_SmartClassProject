@@ -1,0 +1,126 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartClass - Login</title>
+    <style>
+        body {
+            background-image: url('{% static 'core/images/smartlogo.png' %}'); 
+             background-size: cover; 
+
+background-size: contain;
+background-position: center;
+
+             background-repeat: no-repeat; 
+             background-attachment: fixed;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4c6ef5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #3b5bdb;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+        }
+
+        .link-text {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .link-text a {
+            color: #4c6ef5;
+            text-decoration: none;
+        }
+
+        .link-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    
+        <img src="{% static 'core/images/smartlogo.png' %}" alt="Logo" height="80" width="80" style="border-style: groove;border-radius: 50%;background-color: white; position: fixed; top: 5px; left: 20px; z-index: 10000;position: fixed; top: 20px; left: 20px; z-index: 10000;border-style: groove;background-color: white;border-radius: 50%;box-shadow: #cf0909;">
+
+    <div class="login-box"
+    style="
+    position:fixed;
+    margin-top: -7%;
+    padding-bottom: 0%;
+    padding-top: 0%;">
+        <h2>Login to SmartClass</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% for error in field.errors %}
+                        <div class="error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="submit-btn">Login</button>
+
+            <div class="link-text">
+                <p>Don't have an account? <a href="{% url 'signup' %}">Register here</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

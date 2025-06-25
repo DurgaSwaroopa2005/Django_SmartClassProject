@@ -1,0 +1,27 @@
+
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+<body style="
+    background-image: url('{% static 'core/images/doubt.jpg' %}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;">
+<center>
+  <div style="border-style: inset;border-radius: 15px;
+    width: 400%;
+    max-width: 400px;
+    padding: 30px;
+    background-color: rgb(127, 182, 255);
+    margin-top: 10%;">
+
+<marquee behavior="slide" direction="down" loop="1" scrollamount="10"><center><h2 style="margin-top:0;">Ask Your Doubt</h2></center></marquee><br>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <br>
+  <button type="submit" style="background-color: rgba(3, 3, 104, 0.599);font-size: 20px;color: white;">Submit</button>
+</form>
+</center>
+</body>
+{% endblock %}

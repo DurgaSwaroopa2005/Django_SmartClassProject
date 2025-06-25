@@ -1,0 +1,63 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartClass - Student Dashboard</title>
+    <link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
+</head>
+
+<body style="background-image: url('{% static 'core/images/student.jpg' %}'); 
+             background-size: cover; 
+             background-repeat: no-repeat; 
+             background-attachment: fixed;">
+
+<div style="position: fixed; top: 20px; left: 20px; z-index: 10000;border-style: groove;background-color: white;border-radius: 50%;">
+        <img src="{% static 'core/images/smartlogo.png' %}" alt="Logo" height="60" width="60" style="border-style: groove;border-radius: 50%;background-color: white; position: fixed; top: 5px; left: 20px; z-index: 10000;">
+  </div>
+
+<div style="position: fixed; top: 10px; right: 10px; z-index: 9999;">
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+<marquee behavior="slide" direction="left" loop="1" scrollamount="15">
+  <h1 style="color: white;">
+    Welcome Student, 
+    <span style="color: crimson;">{{ request.user.username }}</span>
+  </h1>
+</marquee> 
+            <!-- <p class="role">Logged in as: <strong>{{ user_type }}</strong></p>
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a> -->
+        </header>
+
+        <main class="dashboard-main">
+        <div style="border-style:solid;border-radius: 5px;border-color: rgb(73, 207, 244);background-color: rgb(15, 131, 240);">
+            <center><h2 style="font-family: Georgia, 'Times New Roman', Times, serif; font-style: italic ;">Student Features</h2></center>
+
+            <ul class="features-list">            <ul class="features-list">
+                <li>🗒️<a href="{% url 'available_quizzes' %}"> Join Live Quiz</a></li>
+                <li>❓ <a href="{% url 'submit_doubt' %}">Raise Doubts in Real-time</a>
+</li>           <li>📋 <a href="{% url 'my_doubts' %}">View My Doubts</a></li>
+                <!-- <li>📊 View Engagement Stats</li> -->
+<div class="stats">
+  <h2>📊 Engagement Stats</h2>
+  <ul>
+    <div class="stats">
+    <p>○ Quizzes Attempted: {{ quizzes_attempted }}</p>
+    <p>○ Total Questions Answered: {{ total_attempts }}</p>
+    <p>○ Correct Answers: {{ correct_answers }}</p>
+    <p>○ Accuracy: {{ accuracy }}%</p>
+</div>
+  </ul>
+</div>
+                <li>💬 <a href="{% url 'discussion' %}">Participate in Discussions</a></li>
+                <li>🎥 <a href="{% url 'videos' %}">Videos</a></li>
+
+            </ul>
+        </main>
+    </div>
+</body>
+</html>

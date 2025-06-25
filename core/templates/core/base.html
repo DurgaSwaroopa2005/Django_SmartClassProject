@@ -1,0 +1,42 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SmartClass{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+        <img src="{% static 'core/images/smartlogo.png' %}" alt="Logo" height="60" width="60" style="border-style: groove;border-radius: 50%;background-color: white; position: fixed; top: 5px; left: 20px; z-index: 10000;">
+            <h1 class="site-title">SmartClass</h1>
+            <nav>
+                <ul class="nav-links">
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'success' %}">Home</a></li>
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'signup' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 SmartClass. All rights reserved.</p>
+    </footer>
+</body>
+</html>

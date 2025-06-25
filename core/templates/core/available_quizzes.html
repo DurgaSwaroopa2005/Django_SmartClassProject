@@ -1,0 +1,25 @@
+
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+<body style="background-color: rgba(174, 217, 250, 0.842);">
+<center>
+<div style="border-style: inset;border-radius: 15px;
+    width: 400%;
+    max-width: 400px;
+    padding: 30px;
+    background-color: rgb(127, 182, 255);">
+  <h2 style="border-radius: 3%;border-style: double;background-color: rgb(60, 186, 249);">Available Live Quizzes</h2>
+<ul>
+  {% for quiz in quizzes %}
+    <li>
+      {{ quiz.title }} — 
+      <a href="{% url 'attempt_quiz' quiz.id %}">Join</a>
+    </li>
+  {% empty %}
+    <li>No live quizzes at the moment.</li>
+  {% endfor %}
+</ul>
+</div>
+</center>
+{% endblock %}

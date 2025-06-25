@@ -1,0 +1,30 @@
+
+{% extends "core/base.html" %}
+{% block content %}
+<h2 style="margin-top: 0%;font-style:italic ;">Doubt Queue</h2>
+<ul>
+  {% for doubt in doubts %}
+    <li>
+      <strong>{{ doubt.student.username }}</strong>: {{ doubt.question }}  
+      {% if not doubt.is_resolved %}
+        <a href="{% url 'resolve_doubt' doubt.id %}">Mark as Resolved</a>
+      {% else %}
+        ✅ Resolved
+      {% endif %}
+    </li>
+    <li>
+  <strong>{{ doubt.student.username }}</strong> asked on {{ doubt.created_at|date:"M d, Y H:i" }}:<br>
+  <!-- <em>{{ doubt.question }}</em><br> -->
+<p class="question"><b>Q: </b>{{ doubt.question }}</p>
+
+  {% if doubt.reply %}
+    <strong>Reply:</strong> {{ doubt.reply }}
+  {% elif not doubt.is_resolved %}
+    <a href="{% url 'reply_doubt' doubt.id %}">Reply Now</a>
+  {% else %}
+    ✅ Marked as Resolved (no reply)
+  {% endif %}
+</li><hr>
+  {% endfor %}
+</ul>
+{% endblock %}

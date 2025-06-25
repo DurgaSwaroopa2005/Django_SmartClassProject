@@ -1,0 +1,28 @@
+
+{% extends "core/base.html" %}
+{% block content %}
+<center>
+<h2 style="border-radius: 5cm;border-style: groove;background-color: rgb(101, 101, 240);color: cornsilk;font-family:Georgia, 'Times New Roman', Times, serif;">📊 Student Engagement Report 📊</h2>
+
+<table border="1" cellpadding="10">
+  <tr style="background-color: rgb(93, 207, 246);">
+    <th>Student</th>
+    <th>Quizzes Attempted</th>
+    <th>Total Answers</th>
+    <th>Correct Answers</th>
+    <th>Accuracy (%)</th>
+  </tr>
+  {% for e in engagement %}
+  <tr style="background-color: rgb(0, 90, 119);color:white">
+    
+    <td><center>{{ e.student__username }}</td></center>
+  <td><center>{{ e.quizzes_attempted }}</td></center>
+  <td><center>{{ e.total_answers }}</td></center>
+  <td><center>{{ e.correct_answers }}</td></center>
+  <td><center>{{ e.accuracy|floatformat:2 }}</td></center>
+  
+  </tr>
+  {% endfor %}
+</table>
+</center>
+{% endblock %}

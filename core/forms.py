@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import LiveQuiz, Question, Answer, Doubt, Discussion
+from .models import LiveQuiz, Question, Answer, Doubt, Discussion, StudentProfile
 
 
 class CustomSignupForm(UserCreationForm):
@@ -40,7 +40,13 @@ class AnswerForm(forms.ModelForm):
 class DoubtForm(forms.ModelForm):
     class Meta:
         model = Doubt
-        fields = ['question']
+        fields = ['teacher', 'question']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Show only teachers
+        self.fields['teacher'].queryset = User.objects.filter(is_staff=True)
+        self.fields['teacher'].label = "Send To (Teacher)"
+        self.fields['question'].widget = forms.Textarea(attrs={'rows': 4, 'placeholder': 'Enter your doubt here...'})
 
 class DiscussionForm(forms.ModelForm):
     class Meta:
@@ -48,5 +54,18 @@ class DiscussionForm(forms.ModelForm):
         fields = ['content']
         widgets = {
             'content': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Enter your comment...'})
+        } 
+
+
+
+class StudentProfileForm(forms.ModelForm):
+    class Meta:
+        model = StudentProfile
+        fields = ['full_name', 'branch', 'year', 'phone_number', 'profile_pic']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'branch': forms.TextInput(attrs={'class': 'form-control'}),
+            'year': forms.NumberInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
         }
 

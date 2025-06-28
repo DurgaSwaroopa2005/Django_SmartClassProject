@@ -1,7 +1,69 @@
-1
 {% extends "core/base.html" %}
 {% block content %}
-<h2>Quiz Submitted!</h2>
-<p>You scored <strong>{{ score }}/{{ total }}</strong> on "{{ quiz.title }}"</p>
-<a href="{% url 'student_dashboard' %}">🔙 Back to Dashboard</a>
+
+<style>
+  .result-container {
+    max-width: 500px;
+    margin: 60px auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .result-container h2 {
+    color: #2f80ed;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .result-container p {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 30px;
+  }
+
+  .result-container strong {
+    color: #1e40af;
+  }
+
+  .result-container a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #2f80ed;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+
+  .result-container a:hover {
+    background-color: #1c63d0;
+  }
+
+  @media (max-width: 600px) {
+    .result-container {
+      margin: 30px 15px;
+      padding: 25px;
+    }
+
+    .result-container h2 {
+      font-size: 22px;
+    }
+
+    .result-container p {
+      font-size: 18px;
+    }
+  }
+</style>
+<body style="background: linear-gradient(135deg, #667eea, #764ba2);">
+<div class="result-container">
+  <h2>🎉 Quiz Submitted!</h2>
+  <p>You scored <strong>{{ score }}/{{ total }}</strong> on "<strong>{{ quiz.title }}</strong>"</p>
+  <a href="{% url 'student_dashboard' %}">🔙 Back to Dashboard</a>
+</div>
+</body>
 {% endblock %}

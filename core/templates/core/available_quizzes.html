@@ -2,24 +2,101 @@
 {% extends "core/base.html" %}
 {% load static %}
 {% block content %}
-<body style="background-color: rgba(174, 217, 250, 0.842);">
-<center>
-<div style="border-style: inset;border-radius: 15px;
-    width: 400%;
-    max-width: 400px;
+
+<style>
+  body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .quiz-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #3ca9f9;
+    border-radius: 15px;
     padding: 30px;
-    background-color: rgb(127, 182, 255);">
-  <h2 style="border-radius: 3%;border-style: double;background-color: rgb(60, 186, 249);">Available Live Quizzes</h2>
-<ul>
-  {% for quiz in quizzes %}
-    <li>
-      {{ quiz.title }} — 
-      <a href="{% url 'attempt_quiz' quiz.id %}">Join</a>
-    </li>
-  {% empty %}
-    <li>No live quizzes at the moment.</li>
-  {% endfor %}
-</ul>
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .quiz-container h2 {
+    background-color: #3ca9f9;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 25px;
+    border-style: double;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin: 15px 0;
+    padding: 12px 15px;
+    background-color: #e8f4fd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+  }
+
+  li:hover {
+    background-color: #d3eafc;
+  }
+
+  a {
+    text-decoration: none;
+    padding: 6px 14px;
+    background-color: #2f80ed;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  a:hover {
+    background-color: #2563eb;
+  }
+
+  .no-quiz {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  @media (max-width: 600px) {
+    .quiz-container {
+      margin: 30px 20px;
+      padding: 20px;
+    }
+
+    li {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+</style>
+
+<div class="quiz-container">
+  <h2>📢 Available Live Quizzes</h2>
+  <ul>
+    {% for quiz in quizzes %}
+      <li>
+        <span>{{ quiz.title }}</span>
+        <a href="{% url 'attempt_quiz' quiz.id %}">Join</a>
+      </li>
+    {% empty %}
+      <p class="no-quiz">No live quizzes at the moment.</p>
+    {% endfor %}
+  </ul>
 </div>
-</center>
+
 {% endblock %}

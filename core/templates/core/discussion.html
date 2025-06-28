@@ -1,23 +1,126 @@
 {% extends "core/base.html" %}
 {% block content %}
-<center>
-<h2>Discussion Forum</h2>
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Post</button>
-</form>
-</center>
-<hr>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2); 
+   }
 
-<h3>All Posts:</h3>
-{% for d in discussions %}
-  <div style="margin-bottom: 15px;">
-    <strong>{{ d.user.username }}</strong> <small>{{ d.posted_at }}</small>
-    <p>{{ d.content }}</p>
-  </div>
-{% empty %}
-  <p>No discussions yet.</p>
-{% endfor %}
+  .forum-container {
+    max-width: 700px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .forum-container h2 {
+    text-align: center;
+    color: #2f80ed;
+    margin-bottom: 25px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  form textarea,
+  form input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+  }
+
+  button[type="submit"] {
+    width: 150px;
+    align-self: center;
+    padding: 10px 20px;
+    background-color: #2f80ed;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #1c63d0;
+  }
+
+  hr {
+    margin: 40px 0;
+    border-top: 1px solid #ccc;
+  }
+
+  .forum-container h3 {
+    color: #1e40af;
+    margin-bottom: 15px;
+  }
+
+  .discussion {
+    background-color: #f0f7ff;
+    padding: 15px 20px;
+    border-left: 5px solid #2f80ed;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .discussion strong {
+    color: #333;
+  }
+
+  .discussion small {
+    color: #777;
+    font-size: 13px;
+    margin-left: 10px;
+  }
+
+  .discussion p {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #444;
+  }
+
+  @media (max-width: 600px) {
+    .forum-container {
+      margin: 20px 15px;
+      padding: 20px;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="forum-container">
+  <h2>💬 Discussion Forum</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post</button>
+  </form>
+
+  <hr>
+
+  <h3>All Posts:</h3>
+  {% for d in discussions %}
+    <div class="discussion">
+      <strong>{{ d.user.username }}</strong>
+      <small>{{ d.posted_at|date:"M d, Y H:i" }}</small>
+      <p>{{ d.content }}</p>
+    </div>
+  {% empty %}
+    <p>No discussions yet.</p>
+  {% endfor %}
+</div>
+
 {% endblock %}

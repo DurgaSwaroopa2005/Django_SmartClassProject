@@ -2,7 +2,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth.views import LogoutView
-from .views import videos_view
+from .views import videos_view, edit_profile
 
 urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
@@ -34,5 +34,7 @@ path('teacher/engagement/', views.monitor_engagement, name='monitor_engagement')
 path('student/dashboard/', views.student_dashboard, name='student_dashboard'),
 path('discussion/', views.discussion_view, name='discussion'),
 path('videos/', videos_view, name='videos'),
+path('home/', views.home, name='home'),
+path('edit-profile/', edit_profile, name='edit_profile'),
 
 ]

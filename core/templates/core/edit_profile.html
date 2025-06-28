@@ -1,0 +1,69 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  .profile-form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #0f7ee6;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .profile-form-container h2 {
+    margin-bottom: 25px;
+    text-align: center;
+    color: #2F80ED;
+  }
+
+  .profile-form-container label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .profile-form-container input[type="text"],
+  .profile-form-container input[type="number"],
+  .profile-form-container input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+
+  .profile-form-container button[type="submit"] {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background-color: #0f7ee6;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .profile-form-container button[type="submit"]:hover {
+    background-color:chartreuse;
+  }
+</style>
+
+<div class="profile-form-container">
+    <div style="border-color: white;border-style: groove;">
+  <h2 style="color: azure;">Edit Your Profile</h2>
+  </div>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+  </form>
+</div>
+{% endblock %}

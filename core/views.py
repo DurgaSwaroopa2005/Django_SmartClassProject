@@ -4,11 +4,13 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from .models import Profile
-from .models import LiveQuiz, Question, Answer, Doubt, StudentResponse, Discussion
-from .forms import LiveQuizForm, QuestionForm, AnswerForm, DoubtForm, DiscussionForm
+from .models import LiveQuiz, Question, Answer, Doubt, StudentResponse, Discussion,StudentProfile
+from .forms import LiveQuizForm, QuestionForm, AnswerForm, DoubtForm, DiscussionForm,StudentProfileForm
 from django.db.models import Avg, Count, Sum, F, FloatField, ExpressionWrapper, Q, Case, When, F
 from django.db.models.functions import Coalesce
 from django.forms import modelformset_factory
+from django.utils import timezone
+
 
 
 # 🔹 SIGNUP VIEW
@@ -85,7 +87,6 @@ def success_view(request):
 @login_required
 def student_dashboard_view(request):
     return render(request, 'core/student_dashboard.html')
-
 
 @login_required
 def teacher_dashboard_view(request):
@@ -308,6 +309,44 @@ def discussion_view(request):
 @login_required
 def videos_view(request):
     return render(request, 'core/videos.html')
+
+
+def home(request):
+    return render(request,'core/home.html',{})
+
+
+@login_required
+def edit_profile(request):
+    try:
+        profile = request.user.studentprofile
+    except StudentProfile.DoesNotExist:
+        profile = StudentProfile(user=request.user)
+
+    if request.method == 'POST':
+        form = StudentProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('student_dashboard')
+    else:
+        form = StudentProfileForm(instance=profile)
+
+    return render(request, 'core/edit_profile.html', {'form': form})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # @login_required
 # def view_received_doubts(request):

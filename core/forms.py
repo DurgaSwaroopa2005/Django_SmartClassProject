@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import LiveQuiz, Question, Answer, Doubt, Discussion, StudentProfile
+from .models import LiveQuiz, Question, Answer, Doubt, Discussion, StudentProfile,TeacherProfile
 
 
 class CustomSignupForm(UserCreationForm):
@@ -69,3 +69,8 @@ class StudentProfileForm(forms.ModelForm):
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+
+class TeacherProfileForm(forms.ModelForm):
+    class Meta:
+        model = TeacherProfile
+        fields = ['full_name', 'subject', 'bio', 'profile_pic']

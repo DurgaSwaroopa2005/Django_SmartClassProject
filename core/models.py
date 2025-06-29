@@ -86,3 +86,12 @@ class StudentProfile(models.Model):
         return self.user.username
 
 
+class TeacherProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=100, blank=True)
+    subject = models.CharField(max_length=100, blank=True)
+    bio = models.TextField(blank=True)
+    profile_pic = models.ImageField(upload_to='teacher_profiles/', blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username

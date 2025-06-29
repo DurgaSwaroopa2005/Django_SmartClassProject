@@ -36,5 +36,5 @@ path('discussion/', views.discussion_view, name='discussion'),
 path('videos/', videos_view, name='videos'),
 path('home/', views.home, name='home'),
 path('edit-profile/', edit_profile, name='edit_profile'),
-
+path('teacher/edit-profile/', views.edit_teacher_profile, name='edit_teacher_profile'),
 ]

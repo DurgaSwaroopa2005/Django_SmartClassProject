@@ -4,8 +4,8 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from .models import Profile
-from .models import LiveQuiz, Question, Answer, Doubt, StudentResponse, Discussion,StudentProfile
-from .forms import LiveQuizForm, QuestionForm, AnswerForm, DoubtForm, DiscussionForm,StudentProfileForm
+from .models import LiveQuiz, Question, Answer, Doubt, StudentResponse, Discussion,StudentProfile, TeacherProfile
+from .forms import LiveQuizForm, QuestionForm, AnswerForm, DoubtForm, DiscussionForm,StudentProfileForm, TeacherProfileForm
 from django.db.models import Avg, Count, Sum, F, FloatField, ExpressionWrapper, Q, Case, When, F
 from django.db.models.functions import Coalesce
 from django.forms import modelformset_factory
@@ -332,8 +332,17 @@ def edit_profile(request):
 
     return render(request, 'core/edit_profile.html', {'form': form})
 
-
-
+@login_required
+def edit_teacher_profile(request):
+    teacher, created = TeacherProfile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = TeacherProfileForm(request.POST, request.FILES, instance=teacher)
+        if form.is_valid():
+            form.save()
+            return redirect('teacher_dashboard')  # or any success page
+    else:
+        form = TeacherProfileForm(instance=teacher)
+    return render(request, 'core/edit_teacher_profile.html', {'form': form})
 
 
 

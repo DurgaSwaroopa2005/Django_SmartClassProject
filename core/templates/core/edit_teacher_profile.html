@@ -1,4 +1,4 @@
-{% extends "core/base.html" %}
+{% extends 'core/base.html' %}
 {% load static %}
 
 {% block content %}
@@ -58,17 +58,24 @@
 
 
 
+
+
+
 <body style="background: linear-gradient(135deg, #667eea, #764ba2);">
 
+
+
+
   <div class="profile-form-container">
-    <div style="border-color: white;border-style: groove;">
+        <div style="border-color: white;border-style: groove;">
+
   <h2 style="color: azure;">Edit Your Profile</h2>
   </div>
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-  </form>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
 </div>
 </body>
 {% endblock %}

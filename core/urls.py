@@ -31,10 +31,16 @@ path('student/my-doubts/', views.my_doubts, name='my_doubts'),
 path('student/quizzes/', views.available_quizzes, name='available_quizzes'),
 path('student/quiz/<int:quiz_id>/', views.attempt_quiz, name='attempt_quiz'),
 path('teacher/engagement/', views.monitor_engagement, name='monitor_engagement'),
-path('student/dashboard/', views.student_dashboard, name='student_dashboard'),
+path('student/dashboard/', views.student_dashboard_view, name='student_dashboard'),
 path('discussion/', views.discussion_view, name='discussion'),
 path('videos/', videos_view, name='videos'),
 path('home/', views.home, name='home'),
 path('edit-profile/', edit_profile, name='edit_profile'),
 path('teacher/edit-profile/', views.edit_teacher_profile, name='edit_teacher_profile'),
+# path('performance-report/', views.performance_report_view, name='performance_report'),
+
+
+path('toggle-dark-mode/', views.toggle_dark_mode, name='toggle_dark_mode'),
+
+
 ]

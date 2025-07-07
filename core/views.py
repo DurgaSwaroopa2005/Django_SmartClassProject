@@ -86,11 +86,64 @@ def success_view(request):
 # 🔹 DASHBOARDS
 @login_required
 def student_dashboard_view(request):
-    return render(request, 'core/student_dashboard.html')
+    student = request.user
+
+    # 🔹 Get the student's profile
+    try:
+        profile = StudentProfile.objects.get(user=student)
+        dark_mode = profile.dark_mode
+    except StudentProfile.DoesNotExist:
+        dark_mode = False  # fallback if profile doesn't exist
+
+    quizzes_attempted = StudentResponse.objects.filter(student=student).values('quiz').distinct().count()
+    questions_answered = StudentResponse.objects.filter(student=student).count()
+    correct_answers = StudentResponse.objects.filter(student=student, is_correct=True).count()
+
+    accuracy = (correct_answers / questions_answered * 100) if questions_answered > 0 else 0
+
+    context = {
+        'quizzes_attempted': quizzes_attempted,
+        'questions_answered': questions_answered,
+        'accuracy': round(accuracy, 2),
+        'dark_mode': dark_mode  
+    }
+
+    return render(request, 'core/student_dashboard.html', context)
+
+
 
 @login_required
 def teacher_dashboard_view(request):
-    return render(request, 'core/teacher_dashboard.html')
+    from django.db.models import Count
+
+    # 🔹 Get teacher profile to access dark_mode
+    try:
+        profile = request.user.teacherprofile
+        dark_mode = profile.dark_mode
+    except TeacherProfile.DoesNotExist:
+        dark_mode = False  # fallback
+
+    # 🔹 Calculate stats
+    total_students = StudentResponse.objects.values('student').distinct().count()
+    total_quizzes = StudentResponse.objects.values('quiz').distinct().count()
+    total_questions = StudentResponse.objects.count()
+    total_correct = StudentResponse.objects.filter(is_correct=True).count()
+
+    accuracy = round((total_correct / total_questions) * 100, 2) if total_questions > 0 else 0
+
+    # 🔹 Pass everything to template
+    context = {
+        'total_students': total_students,
+        'total_quizzes': total_quizzes,
+        'total_questions': total_questions,
+        'total_correct': total_correct,
+        'accuracy': accuracy,
+        'dark_mode': dark_mode  # ✅ now defined
+    }
+
+    return render(request, 'core/teacher_dashboard.html', context)
+
+
 
 
 @login_required
@@ -269,27 +322,6 @@ def monitor_engagement(request):
     return render(request, 'core/monitor_engagement.html', {'engagement': stats})
 
 
-@login_required
-def student_dashboard(request):
-    student = request.user
-
-    responses = StudentResponse.objects.filter(student=student)
-    quiz_ids = responses.values_list('question__quiz_id', flat=True).distinct()
-    quizzes_attempted = quiz_ids.count()
-
-    total_attempts = responses.count()
-    correct_answers = responses.filter(is_correct=True).count()
-
-    accuracy = round((correct_answers / total_attempts) * 100, 2) if total_attempts > 0 else 0
-
-    context = {
-        'quizzes_attempted': quizzes_attempted,
-        'total_attempts': total_attempts,
-        'correct_answers': correct_answers,
-        'accuracy': accuracy,
-    }
-
-    return render(request, 'core/student_dashboard.html', context)
 
 
 @login_required
@@ -343,6 +375,37 @@ def edit_teacher_profile(request):
     else:
         form = TeacherProfileForm(instance=teacher)
     return render(request, 'core/edit_teacher_profile.html', {'form': form})
+
+
+@login_required
+def toggle_dark_mode(request):
+    user = request.user
+
+    try:
+        if hasattr(user, 'studentprofile'):
+            profile = user.studentprofile
+        elif hasattr(user, 'teacherprofile'):
+            profile = user.teacherprofile
+        else:
+            return redirect('unknown_role')
+
+        profile.dark_mode = not profile.dark_mode
+        profile.save()
+    except:
+        pass
+
+    # Redirect back to where they came from
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -15,7 +15,6 @@ class Profile(models.Model):
 
 
 # Create your models here.
-
 class LiveQuiz(models.Model):
     title = models.CharField(max_length=200)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -24,6 +23,7 @@ class LiveQuiz(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Question(models.Model):
     quiz = models.ForeignKey(LiveQuiz, related_name='questions', on_delete=models.CASCADE)
@@ -41,6 +41,10 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
+
+
+
+
 
 class Doubt(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='doubts')
@@ -81,7 +85,8 @@ class StudentProfile(models.Model):
     year = models.IntegerField(blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True)
     profile_pic = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-
+    dark_mode = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.user.username
 
@@ -92,6 +97,15 @@ class TeacherProfile(models.Model):
     subject = models.CharField(max_length=100, blank=True)
     bio = models.TextField(blank=True)
     profile_pic = models.ImageField(upload_to='teacher_profiles/', blank=True, null=True)
+    dark_mode = models.BooleanField(default=False)  
 
     def __str__(self):
         return self.user.username
+
+
+
+
+
+
+
+

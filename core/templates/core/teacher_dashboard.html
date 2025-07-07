@@ -75,6 +75,7 @@
     .card p {
       font-size: 24px;
       font-weight: bold;
+      color: #764ba2;
     }
     .features {
       background-color: white;
@@ -93,20 +94,78 @@
     .features li:last-child {
       border-bottom: none;
     }
+.dark-mode {
+  background: #121212;
+  color: white;
+}
+
+.dark-mode .card {
+  background-color: #1f1f1f;
+  color: white;
+}
+
+.dark-mode .features {
+  background-color: #1f1f1f;
+  color: white;
+}
+
+.dark-mode .features a{
+  background-color: #1f1f1f;
+  color: rgb(116, 216, 229);
+}
+
+.dark-mode .features a:hover{
+  background-color: #1f1f1f;
+  color:aliceblue;
+}
+
+.dark-mode .sidebar {
+  background-color: #1c1c1c;
+  color: white;
+}
+
+.dark-mode .sidebar a {
+  color: #ccc;
+}
+
+.dark-mode .sidebar a:hover {
+  color: white;
+}
+
+.dark-mode .report-card {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+
+
   </style>
 </head>
-<body>
+<body class="{% if dark_mode %}dark-mode{% endif %}">
+
     <img src="{% static 'core/images/smartlogo.png' %}" alt="Logo" height="60" width="60" style=" top: 20px; left: 10px; z-index: 10000;border-style: groove;background-color: white;border-radius: 50%;border-radius: 50%;position: fixed;">
 <div style="position: fixed; top: 10px; right: 10px; z-index: 9999;">
         <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
     </div>
+
+    <div style="position: fixed; top: 55px; right: 10px; z-index: 9999;">
+    <form method="POST" action="{% url 'toggle_dark_mode' %}">
+        {% csrf_token %}
+        
+            {% if dark_mode %}
+            <button type="submit" style="padding: 6px 10px; border-radius: 300px;background-color: #667eea;"><h1>🌤️</h1></button>
+            {% else %}
+            <button type="submit" style="padding: 6px 10px; border-radius: 300px;background-color: black;"><h1>🌙</h1></button>
+            {% endif %}
+        
+    </form>
+</div>
+    
+
   <div class="sidebar">
     <h2>SmartClass</h2>
     <a href="{% url 'edit_teacher_profile' %}">👤 Edit Profile</a>
-    <a href="{% url 'teacher_quizzes' %}">📝 Create & Launch Live Quizzes</a>
-    <a href="{% url 'manage_doubts' %}">❓ Manage Doubt Queue</a>
-    <a href="{% url 'monitor_engagement' %}">📑 Monitor Student Engagement</a>
-    <a href="#">📈 Access Performance Reports</a>
+    
   </div>
 
   <div class="main-content">
@@ -114,16 +173,54 @@
       <marquee behavior="slide" direction="down" loop="1" scrollamount="5"><h1>Welcome lecturer, {{ request.user.username }}</h1></marquee>
       <p><strong>{{ user_type }}</strong></p>
     </div>
+
+    <h3 style="color: rgb(209, 233, 141);">📈 Overall Performance Stats</h3>
+      <div class="cards" style="margin-top: 10px;">
+        
+
+        <div class="card">
+        <h3>Total Students Participated</h3>
+        <p>{{ total_students }}</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Quizzes Attempted</h3>
+        <p>{{ total_quizzes }}</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Questions Answered</h3>
+        <p>{{ total_questions }}</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Correct Answers</h3>
+        <p>{{ total_correct }}</p>
+      </div>
+
+      <div class="card">
+        <h3>Overall Accuracy</h3>
+        <p>{{ accuracy }}%</p>
+      </div>
+      </div>
+      
+
     
     <div class="features">
       <h2 style="color: #667eea;">👩‍🏫 Teacher Tools</h2>
       <ul>
         <li><a href="{% url 'teacher_quizzes' %}">📝 Create & Launch Live Quizzes</a></li>
-    <li><a href="{% url 'manage_doubts' %}">❓ Manage Doubt Queue</a></li>
-    <li><a href="{% url 'monitor_engagement' %}">📑 Monitor Student Engagement</a></li>
-    <li><a href="#">📈 Access Performance Reports</a></li>
+        <li><a href="{% url 'manage_doubts' %}">❓ Manage Doubt Queue</a></li>
+        <li><a href="{% url 'monitor_engagement' %}">📑 Monitor Student Engagement</a></li>
+
+
       </ul>
-    </div>
+    
+
+
+
+      
+  </div>
   </div>
 </body>
 </html>

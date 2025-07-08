@@ -42,5 +42,5 @@ path('teacher/edit-profile/', views.edit_teacher_profile, name='edit_teacher_pro
 
 path('toggle-dark-mode/', views.toggle_dark_mode, name='toggle_dark_mode'),
 
-
+path('contact/', views.contact_view, name='contact'),
 ]

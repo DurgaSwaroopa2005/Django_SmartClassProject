@@ -10,6 +10,8 @@ from django.db.models import Avg, Count, Sum, F, FloatField, ExpressionWrapper, 
 from django.db.models.functions import Coalesce
 from django.forms import modelformset_factory
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.contrib import messages
 
 
 
@@ -399,7 +401,24 @@ def toggle_dark_mode(request):
 
 
 
+def contact_view(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        message = request.POST['message']
+        
+        full_message = f"From: {name} <{email}>\n\nMessage:\n{message}"
+        
+        send_mail(
+            subject='SmartClass Contact Form Submission',
+            message=full_message,
+            from_email=email,
+            recipient_list=['your_smartclass_email@gmail.com'],
+        )
 
+        messages.success(request, 'Your message has been sent successfully!')
+        
+    return render(request, 'core/home.html')
 
 
 

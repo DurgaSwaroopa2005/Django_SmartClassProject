@@ -80,7 +80,7 @@
   }
 </style>
 
-<h2>📚 Video Tutorials</h2>
+<h2>📚 Videos</h2>
 
 <div class="button-container">
   <button onclick="showVideos('c')">C Language</button>
@@ -121,7 +121,7 @@
 
   function showVideos(language) {
     const container = document.getElementById("videoList");
-    container.innerHTML = `<h3 style="color:#2F80ED; margin-bottom: 15px;">📺 ${language.toUpperCase()} Tutorials</h3>`;
+    container.innerHTML = `<h3 style="color:#2F80ED; margin-bottom: 15px;">📺 ${language.toUpperCase()} </h3>`;
     videoData[language].forEach(video => {
       container.innerHTML += `<p><a href="${video.url}" target="_blank">${video.title}</a></p>`;
     });
